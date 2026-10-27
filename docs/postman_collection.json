@@ -1,0 +1,199 @@
+{
+  "info": {
+    "name": "Diabetes Risk Assessment API",
+    "description": "Postman collection for testing the Diabetes Risk Assessment System (Backend on :5000 and ML Service on :8000).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Backend API (:5000)",
+      "item": [
+        {
+          "name": "Health Check (Backend + ML)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "health"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Model Info & Metrics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/model/info",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "model", "info"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Predict Risk - Low Risk Sample",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"age\": 22,\n  \"gender\": \"Female\",\n  \"height_cm\": 165,\n  \"weight_kg\": 58,\n  \"family_history\": false,\n  \"physical_activity\": \"High\",\n  \"smoking\": false,\n  \"alcohol\": false,\n  \"healthy_diet\": true,\n  \"frequent_thirst\": false,\n  \"frequent_urination\": false,\n  \"fatigue\": false,\n  \"blurred_vision\": false,\n  \"slow_wound_healing\": false\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/assessment/predict",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "assessment", "predict"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Predict Risk - Moderate Risk Sample",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"age\": 45,\n  \"gender\": \"Male\",\n  \"height_cm\": 175,\n  \"weight_kg\": 85,\n  \"family_history\": true,\n  \"physical_activity\": \"Medium\",\n  \"smoking\": false,\n  \"alcohol\": true,\n  \"healthy_diet\": false,\n  \"frequent_thirst\": false,\n  \"frequent_urination\": true,\n  \"fatigue\": true,\n  \"blurred_vision\": false,\n  \"slow_wound_healing\": false\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/assessment/predict",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "assessment", "predict"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Predict Risk - High Risk Sample",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"age\": 62,\n  \"gender\": \"Male\",\n  \"height_cm\": 170,\n  \"weight_kg\": 98,\n  \"family_history\": true,\n  \"physical_activity\": \"Low\",\n  \"smoking\": true,\n  \"alcohol\": true,\n  \"healthy_diet\": false,\n  \"frequent_thirst\": true,\n  \"frequent_urination\": true,\n  \"fatigue\": true,\n  \"blurred_vision\": true,\n  \"slow_wound_healing\": true\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/assessment/predict",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "assessment", "predict"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Predict Risk - Validation Error Test",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"age\": -5,\n  \"gender\": \"Other\",\n  \"height_cm\": 20,\n  \"weight_kg\": 500\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/assessment/predict",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "assessment", "predict"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ML Direct Service (:8000)",
+      "item": [
+        {
+          "name": "ML Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:8000/health",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "8000",
+              "path": ["health"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ML Model Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:8000/model-info",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "8000",
+              "path": ["model-info"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ML Predict Direct",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"age\": 35,\n  \"gender\": \"Male\",\n  \"height_cm\": 175,\n  \"weight_kg\": 74,\n  \"family_history\": false,\n  \"physical_activity\": \"Medium\",\n  \"smoking\": false,\n  \"alcohol\": false,\n  \"healthy_diet\": true,\n  \"frequent_thirst\": false,\n  \"frequent_urination\": false,\n  \"fatigue\": false,\n  \"blurred_vision\": false,\n  \"slow_wound_healing\": false\n}"
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/predict",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "8000",
+              "path": ["predict"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

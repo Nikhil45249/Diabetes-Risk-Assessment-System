@@ -1,0 +1,148 @@
+{
+  "best_model": "SVM",
+  "evaluation_results": {
+    "Logistic Regression": {
+      "accuracy": 0.805,
+      "precision": 0.8122,
+      "recall": 0.805,
+      "f1_score": 0.8061,
+      "confusion_matrix": [
+        [
+          41,
+          20,
+          0
+        ],
+        [
+          9,
+          119,
+          20
+        ],
+        [
+          0,
+          29,
+          162
+        ]
+      ]
+    },
+    "Decision Tree": {
+      "accuracy": 0.7575,
+      "precision": 0.7603,
+      "recall": 0.7575,
+      "f1_score": 0.7574,
+      "confusion_matrix": [
+        [
+          52,
+          9,
+          0
+        ],
+        [
+          22,
+          97,
+          29
+        ],
+        [
+          1,
+          36,
+          154
+        ]
+      ]
+    },
+    "Random Forest": {
+      "accuracy": 0.8175,
+      "precision": 0.8167,
+      "recall": 0.8175,
+      "f1_score": 0.8159,
+      "confusion_matrix": [
+        [
+          44,
+          17,
+          0
+        ],
+        [
+          8,
+          110,
+          30
+        ],
+        [
+          0,
+          18,
+          173
+        ]
+      ]
+    },
+    "SVM": {
+      "accuracy": 0.83,
+      "precision": 0.8303,
+      "recall": 0.83,
+      "f1_score": 0.8299,
+      "confusion_matrix": [
+        [
+          48,
+          13,
+          0
+        ],
+        [
+          8,
+          115,
+          25
+        ],
+        [
+          0,
+          22,
+          169
+        ]
+      ]
+    },
+    "KNN": {
+      "accuracy": 0.7975,
+      "precision": 0.8142,
+      "recall": 0.7975,
+      "f1_score": 0.801,
+      "confusion_matrix": [
+        [
+          53,
+          8,
+          0
+        ],
+        [
+          21,
+          116,
+          11
+        ],
+        [
+          0,
+          41,
+          150
+        ]
+      ]
+    }
+  },
+  "features": [
+    "age",
+    "bmi",
+    "gender",
+    "physical_activity",
+    "family_history",
+    "smoking",
+    "alcohol",
+    "healthy_diet",
+    "frequent_thirst",
+    "frequent_urination",
+    "fatigue",
+    "blurred_vision",
+    "slow_wound_healing"
+  ],
+  "risk_labels": {
+    "0": "Low",
+    "1": "Moderate",
+    "2": "High"
+  },
+  "dataset": {
+    "type": "synthetic",
+    "samples": 2000,
+    "train_size": 1600,
+    "test_size": 400,
+    "note": "This dataset is SYNTHETIC, generated for software demonstration only. Evaluation metrics reflect model performance on synthetic data and are NOT clinically validated."
+  },
+  "categorisation_method": "Weighted risk score with thresholds: Low < 20, Moderate 20\u201340, High \u2265 40. See train_model.py docstring for the full formula."
+}
