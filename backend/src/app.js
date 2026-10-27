@@ -21,20 +21,35 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ---------------------------------------------------------------------------
-// Allowed CORS origins — includes local dev + deployed Vercel frontend
+// CORS — dynamic origin check
+//   • localhost for dev
+//   • Any Vercel preview / production URL for the project
+//   • Optional FRONTEND_URL env-var override
 // ---------------------------------------------------------------------------
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://diabetes-risk-assessment-system-9jmnzx1df-nikhil45249s-projects.vercel.app",
-  process.env.FRONTEND_URL,
-].filter(Boolean);
+const ALLOWED_ORIGIN_PATTERNS = [
+  /^http:\/\/localhost(:\d+)?$/,                          // local dev (any port)
+  /^https:\/\/diabetes-risk-assessment-system[^.]*\.vercel\.app$/, // all Vercel deploys
+];
+
+function isOriginAllowed(origin) {
+  if (!origin) return true;                              // non-browser clients (curl, Postman)
+  if (process.env.FRONTEND_URL && origin === process.env.FRONTEND_URL) return true;
+  return ALLOWED_ORIGIN_PATTERNS.some((pattern) => pattern.test(origin));
+}
 
 // ---------------------------------------------------------------------------
 // Middleware
 // ---------------------------------------------------------------------------
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      if (isOriginAllowed(origin)) {
+        callback(null, true);
+      } else {
+        console.warn(`[CORS] Blocked origin: ${origin}`);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -67,5 +82,5 @@ app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`\n🚀 Backend running on http://localhost:${PORT}`);
   console.log(`   ML service URL: ${process.env.ML_SERVICE_URL || "http://127.0.0.1:8000"}`);
-  console.log(`   Allowed origins: ${allowedOrigins.join(", ")}\n`);
+  console.log(`   CORS: localhost + *.vercel.app${process.env.FRONTEND_URL ? ` + ${process.env.FRONTEND_URL}` : ""}\n`);
 });
